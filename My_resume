@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Resume Builder</title>
+    <style>
+        /* Basic Page Styling */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+        }
+
+        /* --- Input Form Styling --- */
+        .input-form {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            width: 350px;
+        }
+        .input-form h2 {
+            margin-top: 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        .input-group input, .input-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box; /* Important for padding and width */
+        }
+        .input-group textarea {
+            resize: vertical; /* Allow vertical resizing */
+            min-height: 80px;
+        }
+
+        /* --- Resume Preview Styling --- */
+        .resume-preview {
+            flex-grow: 1; /* Takes up remaining space */
+            background-color: #fff;
+            padding: 40px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        .resume-header {
+            text-align: center;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+        #outputName {
+            margin: 0;
+            font-size: 2.5em;
+            color: #333;
+        }
+        #outputDesignation {
+            margin: 5px 0 0 0;
+            font-size: 1.2em;
+            color: #555;
+            font-style: italic;
+        }
+        .resume-section {
+            margin-bottom: 20px;
+        }
+        .resume-section h3 {
+            color: #007bff;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        .contact-info p {
+            margin: 5px 0;
+        }
+        #outputSummary, #outputSkills {
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SECTION 1: The Input Form -->
+    <div class="input-form">
+        <h2>Resume Details</h2>
+
+        <div class="input-group">
+            <label for="inputName">Full Name</label>
+            <input type="text" id="inputName" placeholder="e.g., Jane Doe" onkeyup="updateResume()">
+        </div>
+
+        <div class="input-group">
+            <label for="inputDesignation">Designation / Title</label>
+            <input type="text" id="inputDesignation" placeholder="e.g., Senior Web Developer" onkeyup="updateResume()">
+        </div>
+
+        <div class="input-group">
+            <label for="inputEmail">Email</label>
+            <input type="email" id="inputEmail" placeholder="e.g., jane.doe@example.com" onkeyup="updateResume()">
+        </div>
+
+        <div class="input-group">
+            <label for="inputPhone">Phone Number</label>
+            <input type="tel" id="inputPhone" placeholder="e.g., (123) 456-7890" onkeyup="updateResume()">
+        </div>
+
+        <div class="input-group">
+            <label for="inputSummary">Professional Summary</label>
+            <textarea id="inputSummary" placeholder="A brief summary of your skills and career goals..." onkeyup="updateResume()"></textarea>
+        </div>
+
+        <div class="input-group">
+            <label for="inputSkills">Skills (comma separated)</label>
+            <input type="text" id="inputSkills" placeholder="e.g., HTML, CSS, JavaScript, Problem Solving" onkeyup="updateResume()">
+        </div>
+    </div>
+
+    <!-- SECTION 2: The Resume Preview -->
+    <div class="resume-preview">
+        <header class="resume-header">
+            <h1 id="outputName">Your Name</h1>
+            <h2 id="outputDesignation">Your Designation</h2>
+        </header>
+        <main>
+            <section class="contact-info resume-section">
+                <h3>Contact</h3>
+                <p><strong>Email:</strong> <span id="outputEmail">your.email@example.com</span></p>
+                <p><strong>Phone:</strong> <span id="outputPhone">(123) 456-7890</span></p>
+            </section>
+
+            <section class="summary-section resume-section">
+                <h3>Summary</h3>
+                <p id="outputSummary">This is where your professional summary will appear. Start typing in the form on the left to see it update in real-time!</p>
+            </section>
+
+            <section class="skills-section resume-section">
+                <h3>Skills</h3>
+                <p id="outputSkills">HTML, CSS, JavaScript</p>
+            </section>
+        </main>
+    </div>
+
+    <!-- SECTION 3: The JavaScript Magic -->
+    <script>
+        // This function is called every time you type in a form field
+        function updateResume() {
+            // Get values from the input fields
+            const name = document.getElementById('inputName').value;
+            const designation = document.getElementById('inputDesignation').value;
+            const email = document.getElementById('inputEmail').value;
+            const phone = document.getElementById('inputPhone').value;
+            const summary = document.getElementById('inputSummary').value;
+            const skills = document.getElementById('inputSkills').value;
+
+            // Update the preview with the new values
+            // Use placeholders if the fields are empty
+            document.getElementById('outputName').innerText = name || "Your Name";
+            document.getElementById('outputDesignation').innerText = designation || "Your Designation";
+            document.getElementById('outputEmail').innerText = email || "your.email@example.com";
+            document.getElementById('outputPhone').innerText = phone || "(123) 456-7890";
+            document.getElementById('outputSummary').innerText = summary || "This is where your professional summary will appear...";
+            document.getElementById('outputSkills').innerText = skills || "Your skills will be listed here.";
+        }
+
+        // Call the function once on page load to set initial values
+        window.onload = updateResume;
+    </script>
+
+</body>
+</html>
